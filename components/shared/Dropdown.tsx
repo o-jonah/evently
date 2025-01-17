@@ -19,7 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Input } from "../ui/input"
-
+import { createCategory, getAllCategories } from "@/lib/actions/category.action"
 
 type DropdownProps = {
   value?: string
@@ -41,11 +41,9 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
 
   useEffect(() => {
     const getCategories = async () => {
-      const categoryList = await getCategories() || [];
+      const categoryList = await getAllCategories();
 
-      if (categoryList) {
-        setCategories(categoryList as ICategory[]);
-      }
+      categoryList && setCategories(categoryList as ICategory[])
     }
 
     getCategories();
@@ -84,21 +82,3 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
 }
 
 export default Dropdown
-
-async function createCategory({ categoryName }: { categoryName: string }): Promise<ICategory> {
-  // Implement the function to create a category and return a promise
-  const response = await fetch('/api/categories', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name: categoryName }),
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to create category');
-  }
-
-  const category = await response.json();
-  return category;
-}
