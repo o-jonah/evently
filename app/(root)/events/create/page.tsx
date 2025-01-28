@@ -7,6 +7,8 @@ const CreateEvent = async () => {
 
   const userId = sessionClaims?.userId as string;
 
+  console.log(userId)
+
   return (
     <> 
     <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center 
