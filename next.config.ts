@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   remotePatterns: [
     {
       protocol: 'https',
-      hostman: 'utfs.io',
+      hostname: 'utfs.io',
       port: ''
     }
   ]
