@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { getCategories } from "@/lib/actions/category.actions";
+import { getAllCategories } from "@/lib/actions/category.actions";
 import { ICategory } from "@/lib/database/models/category.model";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -19,15 +19,13 @@ const CategoryFilter = () => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const categoryList = await getCategories();
+    const getCategories = async () => {
+      const categoryList = await getAllCategories();
 
-      if (categoryList) {
-        setCategories(categoryList as ICategory[]);
-      }
+      categoryList && setCategories(categoryList as ICategory[])
     }
 
-    fetchCategories();
+    getCategories();
   }, [])
 
   const onSelectCategory = (category: string) => {
